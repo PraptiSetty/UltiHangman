@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
+
 public class UltiHangman {
 
     static String usedLetters = "";
@@ -18,7 +19,7 @@ public class UltiHangman {
         {
             printHangMan(mistakes);
             System.out.println("" );
-            System.out.println(obfusticatedWord);
+            System.out.println(obfusticatedWord + ((guesses > 4)? "\tClue: " + clue : ""));
             System.out.println("Wrong guesses: " + mistakes + " Guesses: " + guesses + " Used letters: " + usedLetters);
             String letter = getLetter();
             if (letterUsed(letter))
@@ -39,7 +40,6 @@ public class UltiHangman {
             }
             guesses++;
             if (word.equals(obfusticatedWord)) break;
-            if (guesses > 4) System.out.println("The clue: " + clue);
         }
 
         gameFinished(guesses, mistakes, word);
@@ -74,8 +74,8 @@ public class UltiHangman {
 
     public static String getClue()
     {
-    	System.out.println("CHALLENGER!");
-    	System.out.println("GIVE US A CLUE TO PROVIDE YOUR STRUGGLING OPPONENT WITH : ");
+        System.out.println("CHALLENGER!");
+        System.out.println("GIVE US A CLUE TO PROVIDE YOUR STRUGGLING OPPONENT WITH : ");
         inputScanner.nextLine();
         String clue = inputScanner.nextLine();
 
@@ -307,7 +307,6 @@ public class UltiHangman {
         while (!validLetter)
         {
             String input = inputScanner.next();
-
             if (input.length() == 1)
             {
                 return input;
@@ -322,18 +321,16 @@ public class UltiHangman {
 
     public static void gameFinished(int numberOfGuesses, int numberOfWrongGuesses, String word)
     {
-
-
         if (numberOfWrongGuesses == 8)
         {
-            System.out.println("Unfortunate. You lost the game! Better luck next time! The word inputted by your nemesis was" + word +".");
+            printHangMan(8);
+            System.out.println("Unfortunate. You lost the game! Better luck next time! The word inputted by your nemesis was '" + word +"'.");
         }
         else
         {
             System.out.println("You have won the game! WELL DONE!! It took you "
-                    + numberOfGuesses +" guesses to get the right word! The word inputted by your Challenger was \"" + word +"\"." );
+                    + numberOfGuesses + " guesses to get the right word! The word inputted by your Challenger was \"" + word +"\"." );
         }
-
     }
 
     public static String revealLetter(String letter, String word, String hword)
@@ -344,12 +341,11 @@ public class UltiHangman {
         {
             if (word.charAt(i) == letter.charAt(0))
             {
-                
+
                 nahword = nhword.substring(0, i) + letter + nhword.substring(i+1);
                 nhword = nahword;
             }
         }
         return nhword;
     }
-
 }
